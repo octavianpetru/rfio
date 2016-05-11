@@ -1,2 +1,6 @@
 wiringPi.c
 wiringPi.h
+RCSwitch.o
+rfio
+rfio.o
+
