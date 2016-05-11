@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
 
 			//000001111011 123
 			//mySwitch.send("1001000110010001000001111011110011000");
-			delay(16500);
+			delay(24250);
 
 		    char s1[13] = {'\0'};
 			tobin5str(256-i, s1);
@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
 
 			//000101000001 321
 			//mySwitch.send("1001001000110010000101000001110011000");
-			delay(16500);
+			delay(24250);
 
 		}
 	}
