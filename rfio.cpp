@@ -5,7 +5,7 @@
 #include "RCSwitch.h"
 #include "wiringPi.h"
 
-void tobin5str(long value, char* output);
+void toBinStr(long value, char* output, int i);
 
 int main(int argc, char **argv) {
 	// setup wiringPi 
@@ -14,8 +14,7 @@ int main(int argc, char **argv) {
 	}
 
 	// setup led pin
-	pinMode(LED_PIN, PWM_OUTPUT);
-	pwmWrite(LED_PIN, LOW);
+	pinMode(RX_PIN, INPUT);
 
 	RCSwitch mySwitch = RCSwitch();
 	mySwitch.enableTransmit(TX_PIN);
@@ -31,28 +30,20 @@ int main(int argc, char **argv) {
 		int i = minLedValue;
 		for (; i < maxLedValue; i = i + minLedValue) {
 
-			pwmWrite(LED_PIN, i);
-
 		    char s[13] = {'\0'};
-		    tobin5str(i, s);
+		    toBinStr(i, s, 12);
 		    char str[38] = {'\0'};
 		    sprintf(str, "1001000110010001%s110011000", s);
 		    mySwitch.send(str);
 			printf("%3d sent %3d\n", txCount++, i);
-
-			//000001111011 123
-			//mySwitch.send("1001000110010001000001111011110011000");
 			delay(24250);
 
 		    char s1[13] = {'\0'};
-			tobin5str(256-i, s1);
+			toBinStr(256-i, s1, 12);
 		    char str1[38] = {'\0'};
 		    sprintf(str1, "1001001000110010%s110011000", s1);
 		    mySwitch.send(str1);
 			printf("%3d sent %3d\n", txCount++, 256-i);
-
-			//000101000001 321
-			//mySwitch.send("1001001000110010000101000001110011000");
 			delay(24250);
 
 		}
@@ -61,12 +52,9 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
-void tobin5str(long value, char* output)
-{
-    int i;
-    output[12] = '\0';
-    for (i = 11; i >= 0; --i, value >>= 1)
-    {
-        output[i] = (value & 1) + '0';
-    }
+void toBinStr(long value, char* output, int i) {
+	output[i] = '\0';
+	for (i = i - 1; i >= 0; --i, value >>= 1) {
+		output[i] = (value & 1) + '0';
+	}
 }

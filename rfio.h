@@ -1,2 +1,2 @@
 #define TX_PIN 0
-#define LED_PIN 1
+#define RX_PIN 1
