@@ -1,7 +1,3 @@
-#if not defined(RPI)
-#define RPI
-#endif
-
 #include "rfio.h"
 
 #include <cstdio>
