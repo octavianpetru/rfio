@@ -5,8 +5,6 @@
 #include "RCSwitch.h"
 #include "wiringPi.h"
 
-void toBinStr(long value, char* output, int i);
-
 int main(int argc, char **argv) {
 	// setup wiringPi 
 	if (wiringPiSetup() == -1) {
@@ -19,9 +17,9 @@ int main(int argc, char **argv) {
 	RCSwitch mySwitch = RCSwitch();
 	mySwitch.enableTransmit(TX_PIN);
 
-	// Optional set protocol (default is 1, will work for most outlets)
-	mySwitch.setProtocol(6);
-	mySwitch.setRepeatTransmit(10);
+	// Optional set protocol
+	mySwitch.setProtocol(1);
+	mySwitch.setRepeatTransmit(8);
 
 	int txCount = 1;
 	int minLedValue = 8;
