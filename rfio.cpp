@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
 			toBinStr(i, s, 12);
 			char str[38] = { '\0' };
 			sprintf(str, "1001000110010001%s110011000", s);
-			mySwitch.send(str);
+			mySwitch.sendString(str);
 			printf("%3d sent %3d\n", txCount++, i);
 			delay(24250);
 
@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
 			toBinStr(256 - i, s1, 12);
 			char str1[38] = { '\0' };
 			sprintf(str1, "1001001000110010%s110011000", s1);
-			mySwitch.send(str1);
+			mySwitch.sendString(str1);
 			printf("%3d sent %3d\n", txCount++, 256 - i);
 			delay(24250);
 

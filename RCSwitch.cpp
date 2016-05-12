@@ -479,6 +479,45 @@ void RCSwitch::send(const char* sCodeWord) {
 }
 
 /**
+ * Dont remove this, it's used to send more than long
+ */
+void RCSwitch::sendString(const char* sCodeWord) {
+	if (this->nTransmitterPin == -1)
+		return;
+
+#if not defined( RCSwitchDisableReceiving )
+	// make sure the receiver is disabled while we transmit
+	int nReceiverInterrupt_backup = nReceiverInterrupt;
+	if (nReceiverInterrupt_backup != -1) {
+		this->disableReceive();
+	}
+#endif
+
+	for (int nRepeat = 0; nRepeat < nRepeatTransmit; nRepeat++) {
+		int i = 0;
+		while (sCodeWord[i] != '\0') {
+			switch (sCodeWord[i]) {
+				case '0':
+					this->transmit(protocol.zero);
+					break;
+				case '1':
+					this->transmit(protocol.one);
+					break;
+			}
+			i++;
+		}
+		this->transmit(protocol.syncFactor);
+	}
+
+#if not defined( RCSwitchDisableReceiving )
+	// enable receiver again if we just disabled it
+	if (nReceiverInterrupt_backup != -1) {
+		this->enableReceive(nReceiverInterrupt_backup);
+	}
+#endif
+}
+
+/**
  * Transmit the first 'length' bits of the integer 'code'. The
  * bits are sent from MSB to LSB, i.e., first the bit at position length-1,
  * then the bit at position length-2, and so on, till finally the bit at position 0.
@@ -665,6 +704,11 @@ void RECEIVE_ATTR RCSwitch::handleInterrupt() {
     changeCount = 0;
     repeatCount = 0;
   }
+
+	// if duration < 200 -> noise
+	if (duration < 200) {
+		return;
+	}
 
   RCSwitch::timings[changeCount++] = duration;
   lastTime = time;  
