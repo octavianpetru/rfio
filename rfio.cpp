@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
 
 			char outputString[160];
 			sprintf(outputString,
-					"indexReceive %3d / startLabel: %s / id: %3d / canal: %1d / temperature: %4d / temperatureStr: %s / endLabel: %s / time: %lu\n",
+					"indexReceive %3d / startLabel: %s / id: %3d / canal: %1d / temperature: %4d / temperatureStr: %s / endLabel: %s / time: %lu\n\n",
 					(*temperatureMessage).indexReceive,
 					(*temperatureMessage).startLabel, (*temperatureMessage).id,
 					(*temperatureMessage).canal, (*temperatureMessage).temperature,
@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
 			mySwitch.sendString(str);
 
 			char outputStringSend[160];
-			sprintf(outputStringSend,"%3d sent %3d\n", (*temperatureMessage).indexReceive, (*temperatureMessage).temperature);
+			sprintf(outputStringSend,"%3d sent %3d\n\n", (*temperatureMessage).indexReceive, (*temperatureMessage).temperature);
 			printf(outputStringSend);
 
 			free(temperatureMessage);
