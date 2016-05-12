@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 	// enable receive
 	mySwitch.enableReceive(RX_PIN); // Receiver on interrupt 0 => that is pin #2
 
-	printf("RCSWITCH_MAX_CHANGES: %s\n\n", RCSWITCH_MAX_CHANGES);
+	printf("RCSWITCH_MAX_CHANGES: %d\n\n", RCSWITCH_MAX_CHANGES);
 
 	before = millis();
 	indexReceive = 0;
