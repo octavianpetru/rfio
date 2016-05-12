@@ -3,6 +3,7 @@
 
 #define TX_PIN 0
 #define RX_PIN 1
+#define TX_POWER_PIN 2
 
 typedef struct {
 	unsigned int indexReceive;

@@ -16,6 +16,9 @@ int main(int argc, char **argv) {
 		return -1;
 	}
 
+	// TX_POWER_PIN
+	pinMode(TX_POWER_PIN, OUTPUT);
+	digitalWrite(TX_POWER_PIN, LOW);
 	// enable transmit
 	mySwitch.enableTransmit(TX_PIN);
 	mySwitch.setProtocol(1);
@@ -58,7 +61,9 @@ int main(int argc, char **argv) {
 			toBinStr((*temperatureMessage).temperature, s, 12);
 			char str[38] = { '\0' };
 			sprintf(str, "1001001000110010%s110011000", s);
+			digitalWrite(TX_POWER_PIN, HIGH);
 			mySwitch.sendString(str);
+			digitalWrite(TX_POWER_PIN, LOW);
 
 			char outputStringSend[160];
 			sprintf(outputStringSend,"%3d sent %3d\n\n", (*temperatureMessage).indexReceive, (*temperatureMessage).temperature);
