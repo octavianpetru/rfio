@@ -1,3 +1,7 @@
+#if not defined(RPI)
+#define RPI
+#endif
+
 #include "rfio.h"
 
 #include <cstdio>
@@ -30,20 +34,20 @@ int main(int argc, char **argv) {
 		int i = minLedValue;
 		for (; i < maxLedValue; i = i + minLedValue) {
 
-		    char s[13] = {'\0'};
-		    toBinStr(i, s, 12);
-		    char str[38] = {'\0'};
-		    sprintf(str, "1001000110010001%s110011000", s);
-		    mySwitch.send(str);
+			char s[13] = { '\0' };
+			toBinStr(i, s, 12);
+			char str[38] = { '\0' };
+			sprintf(str, "1001000110010001%s110011000", s);
+			mySwitch.send(str);
 			printf("%3d sent %3d\n", txCount++, i);
 			delay(24250);
 
-		    char s1[13] = {'\0'};
-			toBinStr(256-i, s1, 12);
-		    char str1[38] = {'\0'};
-		    sprintf(str1, "1001001000110010%s110011000", s1);
-		    mySwitch.send(str1);
-			printf("%3d sent %3d\n", txCount++, 256-i);
+			char s1[13] = { '\0' };
+			toBinStr(256 - i, s1, 12);
+			char str1[38] = { '\0' };
+			sprintf(str1, "1001001000110010%s110011000", s1);
+			mySwitch.send(str1);
+			printf("%3d sent %3d\n", txCount++, 256 - i);
 			delay(24250);
 
 		}
